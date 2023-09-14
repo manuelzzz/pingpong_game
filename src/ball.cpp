@@ -64,20 +64,16 @@ public:
             x++;
             break;
         case UPLEFT:
-            x--;
-            y--;
+            x--; y--;
             break;
         case DOWNLEFT:
-            x--;
-            y++;
+            x--; y++;
             break;
         case UPRIGHT:
-            x++;
-            y--;
+            x++; y--;
             break;
         case DOWNRIGHT:
-            x++;
-            y++;
+            x++; y++;
             break;
         default:
             break;
