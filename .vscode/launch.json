@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "/home/mss/projs/pessoal/pingpong_game",
-      "program": "/home/mss/projs/pessoal/pingpong_game/build/Debug/outDebug",
+      "cwd": "/home/mss/projs/pessoal/pingpong_game/src",
+      "program": "/home/mss/projs/pessoal/pingpong_game/src/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
