@@ -1,20 +1,21 @@
+#pragma once
 #include <iostream>
 
 using namespace std;
 
-class cPaddle
+class Paddle
 {
 private:
     int x, y;
     int originalX, originalY;
 
 public:
-    cPaddle()
+    Paddle()
     {
         x = y = 0;
     };
 
-    cPaddle(int posX, int posY) : cPaddle()
+    Paddle(int posX, int posY) : Paddle()
     {
         originalX = posX;
         originalY = posY;
@@ -33,7 +34,7 @@ public:
     void moveUp() { y--; };
     void moveDown() { x--; };
 
-    friend ostream &operator<<(ostream &o, cPaddle p)
+    friend ostream &operator<<(ostream &o, Paddle p)
     {
         o << "Paddle[" << p.x << ", " << p.y << "]" << endl;
         return o;
