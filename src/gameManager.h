@@ -73,9 +73,9 @@ public:
 
                 if (ballx == j && bally == i)
                     cout << "\u25C9";
-                else if (player1x == j && player1y == i)
+                else if (player1x == j && (player1y == i || player1y + 1 == i))
                     cout << "\u250B";
-                else if (player2x == j && player2y == i)
+                else if (player2x == j && (player2y == i || player2y + 1 == i))
                     cout << "\u250B";
                 else
                     cout << " ";
@@ -89,5 +89,40 @@ public:
         for (int i = 0; i < width + 2; i++)
             cout << "\u2501";
         cout << endl;
+    }
+
+    void input()
+    {
+        ball->Move();
+
+        int player1y = player1->getY();
+        int player2y = player2->getY();
+
+        if (_kbhit())
+        {
+            char current = getchar();
+
+            if (current == up1)
+                if (player1y > 0)
+                    player1->moveUp();
+
+            if (current == up2)
+                if (player2y > 0)
+                    player2->moveUp();
+
+            if (current == down1)
+                if (player1y + 2 < height)
+                    player1->moveDown();
+
+            if (current == down2)
+                if (player2y + 2 < height)
+                    player2->moveDown();
+
+            if (ball->getDirection() == STOP)
+                ball->RandomDirection();
+
+            if (current == 'q')
+                quit = true;
+        }
     }
 };
