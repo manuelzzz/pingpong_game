@@ -125,4 +125,36 @@ public:
                 quit = true;
         }
     }
+
+    void moveBall()
+    {
+        int ballx = ball->getX();
+        int bally = ball->getY();
+        int player1x = player1->getX();
+        int player1y = player1->getY();
+        int player2x = player2->getX();
+        int player2y = player2->getY();
+
+        for (int i = 0; i < 2; i++)
+            if (ballx == player1x + 1)
+                if (bally == player1y + 1)
+                    ball->ChangDirection((Direction)((rand() % 3) + 4));
+
+        for (int i = 0; i < 2; i++)
+            if (ballx == player2x - 1)
+                if (bally == player2y - 1)
+                    ball->ChangDirection((Direction)((rand() % 3) + 4));
+
+        if (bally == height - 1)
+            ball->ChangDirection(ball->getDirection() == DOWNRIGHT ? UPRIGHT : UPLEFT);
+
+        if (bally == 0)
+            ball->ChangDirection(ball->getDirection() == UPRIGHT ? DOWNRIGHT : DOWNLEFT);
+
+        if (ballx == width - 1)
+            scoreUp(player1);
+
+        if (ballx == 0)
+            scoreUp(player2);
+    }
 };
