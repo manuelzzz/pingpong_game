@@ -1,5 +1,17 @@
 #pragma once
 #include <iostream>
+#define DIRECTION_H_
+
+enum Direction
+{
+    STOP = 0,
+    LEFT = 1,
+    UPLEFT = 2,
+    DOWNLEFT = 3,
+    RIGHT = 4,
+    UPRIGHT = 5,
+    DOWNRIGHT = 6,
+};
 
 using namespace std;
 
@@ -8,17 +20,7 @@ class Ball
 private:
     int x, y;
     int originalX, originalY;
-    enum eDirection
-    {
-        STOP = 0,
-        LEFT = 1,
-        UPLEFT = 2,
-        DOWNLEFT = 3,
-        RIGHT = 4,
-        UPRIGHT = 5,
-        DOWNRIGHT = 6,
-    };
-    eDirection direction;
+    Direction direction;
 
 public:
     Ball(int posX, int poxY)
@@ -37,19 +39,19 @@ public:
         direction = STOP;
     };
 
-    void ChangeDirection(eDirection d)
+    void ChangDirection(Direction d)
     {
         direction = d;
     };
 
     void RandomDirection()
     {
-        direction = (eDirection)((rand() % 2) + 1);
+        direction = (Direction)((rand() % 2) + 1);
     }
 
     int getX() { return x; }
     int getY() { return y; }
-    eDirection getDirection() { return direction; }
+    Direction getDirection() { return direction; }
 
     void Move()
     {
@@ -64,16 +66,20 @@ public:
             x++;
             break;
         case UPLEFT:
-            x--; y--;
+            x--;
+            y--;
             break;
         case DOWNLEFT:
-            x--; y++;
+            x--;
+            y++;
             break;
         case UPRIGHT:
-            x++; y--;
+            x++;
+            y--;
             break;
         case DOWNRIGHT:
-            x++; y++;
+            x++;
+            y++;
             break;
         default:
             break;
