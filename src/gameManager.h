@@ -31,11 +31,12 @@ public:
         ball = new Ball(w / 2, h / 2);
 
         player1 = new Paddle(1, h / 2 - 3);
-        player2 = new Paddle(w - 2, w / 2);
+        player2 = new Paddle(w - 2, h / 2 - 3);
     }
 
     ~GameManager()
-    {}
+    {
+    }
 
     void scoreUp(Paddle *player)
     {
@@ -53,11 +54,40 @@ public:
     {
         system("clear");
         for (int i = 0; i < width + 2; i++)
-            cout << "#";
+            cout << "\u2501";
         cout << endl;
 
+        for (int i = 0; i < height; i++)
+        {
+            for (int j = 0; j < width; j++)
+            {
+                int ballx = ball->getX();
+                int bally = ball->getY();
+                int player1x = player1->getX();
+                int player1y = player1->getY();
+                int player2x = player2->getX();
+                int player2y = player2->getY();
+
+                if (j == 0)
+                    cout << "\u2503";
+
+                if (ballx == j && bally == i)
+                    cout << "\u25C9";
+                else if (player1x == j && player1y == i)
+                    cout << "\u250B";
+                else if (player2x == j && player2y == i)
+                    cout << "\u250B";
+                else
+                    cout << " ";
+
+                if (j == width - 1)
+                    cout << "\u2503";
+            }
+            cout << endl;
+        }
+
         for (int i = 0; i < width + 2; i++)
-            cout << "#";
+            cout << "\u2501";
         cout << endl;
     }
 };
