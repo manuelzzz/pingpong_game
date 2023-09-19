@@ -32,7 +32,7 @@ public:
     int getX() { return x; };
     int getY() { return y; };
     void moveUp() { y--; };
-    void moveDown() { x--; };
+    void moveDown() { y++; };
 
     friend ostream &operator<<(ostream &o, Paddle p)
     {
