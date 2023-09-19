@@ -23,12 +23,12 @@ private:
     Direction direction;
 
 public:
-    Ball(int posX, int poxY)
+    Ball(int posX, int posY)
     {
         originalX = posX;
-        originalY = poxY;
+        originalY = posY;
         x = posX;
-        y = poxY;
+        y = posY;
         direction = STOP;
     }
 
@@ -39,7 +39,7 @@ public:
         direction = STOP;
     };
 
-    void ChangDirection(Direction d)
+    void ChangeDirection(Direction d)
     {
         direction = d;
     };
@@ -66,20 +66,16 @@ public:
             x++;
             break;
         case UPLEFT:
-            x--;
-            y--;
+            x--; y--;
             break;
         case DOWNLEFT:
-            x--;
-            y++;
+            x--; y++;
             break;
         case UPRIGHT:
-            x++;
-            y--;
+            x++; y--;
             break;
         case DOWNRIGHT:
-            x++;
-            y++;
+            x++; y++;
             break;
         default:
             break;
