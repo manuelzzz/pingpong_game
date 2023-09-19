@@ -9,6 +9,7 @@ class GameManager
 private:
     int width, height;
     int score1, score2;
+    int moveBallLogic;
     char up1, down1, up2, down2;
     bool quit;
     Ball *ball;
@@ -18,24 +19,28 @@ private:
 public:
     GameManager(int w, int h)
     {
-        // srand(time(NULL));
+        srand((unsigned int)time(NULL));
         quit = false;
         up1 = 'w';
         down1 = 's';
         up2 = 'i';
         down2 = 'k';
         score1 = score2 = 0;
+        moveBallLogic = 0;
         width = w;
         height = h;
 
         ball = new Ball(w / 2, h / 2);
 
-        player1 = new Paddle(1, h / 2 - 3);
-        player2 = new Paddle(w - 2, h / 2 - 3);
+        player1 = new Paddle(1, h / 2 - 1);
+        player2 = new Paddle(w - 2, h / 2 - 1);
     }
 
     ~GameManager()
     {
+        delete ball;
+        delete player1;
+        delete player2;
     }
 
     void scoreUp(Paddle *player)
@@ -89,18 +94,19 @@ public:
         for (int i = 0; i < width + 2; i++)
             cout << "\u2501";
         cout << endl;
+
+        cout << "Score 1: " << score1 << endl
+             << "Score 2: " << score2 << endl;
     }
 
-    void input()
+    void Input()
     {
-        ball->Move();
-
         int player1y = player1->getY();
         int player2y = player2->getY();
 
         if (_kbhit())
         {
-            char current = getchar();
+            char current = (char)getchar();
 
             if (current == up1)
                 if (player1y > 0)
@@ -126,35 +132,49 @@ public:
         }
     }
 
-    void moveBall()
+    void Logic()
     {
         int ballx = ball->getX();
         int bally = ball->getY();
         int player1x = player1->getX();
-        int player1y = player1->getY();
         int player2x = player2->getX();
+        int player1y = player1->getY();
         int player2y = player2->getY();
 
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 4; i++)
             if (ballx == player1x + 1)
-                if (bally == player1y + 1)
-                    ball->ChangDirection((Direction)((rand() % 3) + 4));
+                if (bally == player1y + i)
+                    ball->ChangeDirection((Direction)((rand() % 3) + 4));
 
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 4; i++)
             if (ballx == player2x - 1)
-                if (bally == player2y - 1)
-                    ball->ChangDirection((Direction)((rand() % 3) + 4));
+                if (bally == player2y + i)
+                    ball->ChangeDirection((Direction)((rand() % 3) + 1));
 
         if (bally == height - 1)
-            ball->ChangDirection(ball->getDirection() == DOWNRIGHT ? UPRIGHT : UPLEFT);
-
+            ball->ChangeDirection(ball->getDirection() == DOWNRIGHT ? UPRIGHT : UPLEFT);
         if (bally == 0)
-            ball->ChangDirection(ball->getDirection() == UPRIGHT ? DOWNRIGHT : DOWNLEFT);
-
+            ball->ChangeDirection(ball->getDirection() == UPRIGHT ? DOWNRIGHT : DOWNLEFT);
         if (ballx == width - 1)
             scoreUp(player1);
-
         if (ballx == 0)
             scoreUp(player2);
+
+        moveBallLogic++;
+        if (moveBallLogic >= 30)
+        {
+            moveBallLogic = 0;
+            ball->Move();
+        }
+    }
+
+    void Run()
+    {
+        while (!quit)
+        {
+            Draw();
+            Input();
+            Logic();
+        }
     }
 };
