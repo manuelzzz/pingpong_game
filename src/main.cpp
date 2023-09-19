@@ -1,12 +1,9 @@
-#include <iostream>
 #include "gameManager.h"
-
-using namespace std;
 
 int main()
 {
-    GameManager game(40, 20);
-    game.Draw();
+    GameManager game(30, 15);
+    game.Run();
 
     return 0;
 }
